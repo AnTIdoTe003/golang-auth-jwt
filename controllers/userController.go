@@ -125,10 +125,9 @@ func SingIn(c *gin.Context) {
 
 func GetUserDetails(c *gin.Context) {
 	id, _ := c.Get("id")
-	var existUser models.User
+	var existUser models.UserResponse
 	query := "SELECT ID, Email FROM users WHERE ID = ?"
 	db.DB.Raw(query, id).Scan(&existUser)
-	// db.DB.First(&existUser, id).Select("-Email")
 	if existUser.ID == 0 {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
